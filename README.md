@@ -45,7 +45,7 @@ Detailed investigation of specific pins revealed several physical PCB and multip
 * **`PB6`:** **WORKING**, subject to specific board power and line state conditions.
 * **`PB7`:** Unresponsive (line held flat LOW).
 
-![SWV internal output](input_pin/SWV_pinPB3_output.png)
+![SWV internal output](internal_output_pin/SWV_pinPB3_output.png)
 ---
 
 ## TrustZone & Option Byte Verification (STM32CubeProgrammer)
