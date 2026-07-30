@@ -81,7 +81,7 @@ To bypass HAL abstraction and rule out permission blocks => use direct register 
 
 ---
 
-## Internal Output Implementstion
+## Internal Output Implementation
 SWV Trace - Tracing Pins Output Internally (in STM32CubeIDE)
 For example in this way can be tracef the outout of PA2 pin which is connected to the debugger.
 
