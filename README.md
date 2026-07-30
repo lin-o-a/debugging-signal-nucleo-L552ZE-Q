@@ -1,4 +1,4 @@
-# Lab Notes: Configuring/Debugging Signal Outputs and Header Intricacies on Nucleo-L552ZE-Q
+# Lab Notes: Configuring Signal Outputs and Header Intricacies on Nucleo-L552ZE-Q
 
 ## Objective
 To interpret raw digital signals into a human-readable format, I set out to identify pins on the NUCLEO-L552ZE-Q capable of transmitting data (`GPIO_Output` / `USART_TX`) and verify them using a logic analyzer and PulseView.
