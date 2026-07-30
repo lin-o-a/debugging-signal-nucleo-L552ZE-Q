@@ -105,8 +105,8 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
-	  // 1. Transmit UART data on PA2 (USART2_TX)
-	  /* 1. Send UART packet over PA2 (USART2_TX) */
+	  // 1. Transmit UART data on PA3 (USART2_TX)
+	  /* 1. Send UART packet over PA3 (USART2_TX) */
 	      uint8_t tx_msg[] = "PA2_OK\r\n";
 	      HAL_UART_Transmit(&huart2, tx_msg, sizeof(tx_msg) - 1, 100);
 	      HAL_Delay(200);
