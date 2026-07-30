@@ -45,7 +45,6 @@ Detailed investigation of specific pins revealed several physical PCB and multip
 * **`PB6`:** **WORKING**, subject to specific board power and line state conditions.
 * **`PB7`:** Unresponsive (line held flat LOW).
 
-![SWV internal output](internal_output_pin/internal_output_pinPB3_SWV.png)
 
 ---
 
@@ -79,6 +78,14 @@ To bypass HAL abstraction and rule out permission blocks => use direct register 
 * Verified register bit changes in the IDE Special Function Registers (SFR) view.
 
 > **Conclusion:** For pins where `MODER` updated correctly to output mode (`0x1`) in memory but still failed to drive a physical signal at the header socket, the root cause was isolated to **open solder bridges (PCB airgaps)** or **hardwired peripheral multiplexing conflicts**.
+
+---
+
+## Internal Output Implementstion
+SWV Trace - Tracing Pins Output Internally (in STM32CubeIDE)
+For example in this way can be tracef the outout of PA2 pin which is connected to the debugger.
+
+![SWV internal output](internal_output_pin/internal_output_pinPB3_SWV.png)
 
 ---
 
