@@ -45,7 +45,8 @@ Detailed investigation of specific pins revealed several physical PCB and multip
 * **`PB6`:** **WORKING**, subject to specific board power and line state conditions.
 * **`PB7`:** Unresponsive (line held flat LOW).
 
-![SWV internal output](internal_output_pin/SWV_pinPB3_output.png)
+![SWV internal output](internal_output_pin/internal_output_pinPB3_SWV.png)
+
 ---
 
 ## TrustZone & Option Byte Verification (STM32CubeProgrammer)
@@ -56,6 +57,8 @@ To eliminate software environment ambiguity, I connected the board to **STM32Cub
 
 > **Key Takeaway:** The dual Secure/Non-Secure project structure was adding unnecessary abstraction layers for hardware testing because hardware TrustZone was disabled at the silicon level.
 
+
+![SWV internal output](assets/programmer_settings.png)
 
 ---
 
