@@ -53,7 +53,7 @@ Detailed investigation of specific pins revealed several physical PCB and multip
 * **`PB7`:** Unresponsive because of alternating functions (line held flat LOW).
 
 
-![SWV internal output](assets/PB7_multiplexity.png)
+![SWV internal output](assets/PB7_mutliplexity.png)
 
 ---
 
