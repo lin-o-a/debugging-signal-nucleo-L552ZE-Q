@@ -49,11 +49,14 @@ Detailed investigation of specific pins revealed several physical PCB and multip
 * **`A0` (Female Header):** Verified **WORKING** with common ground.
 * **`PB0` (Failure):** Solder bridge **`SB162` is OPEN (OFF) by default**. When `SB162` is open, the physical metal trace between the STM32 silicon pad and header sockets (`CN11` / `CN9`) is physically severed on the PCB. The MCU toggles the internal pad, but the signal cannot reach the analyzer probe. Additionally, `PB0` defaults to `OCTOSPI_IO1` peripheral mode.
 * **`PB3` (SWO Trace):** Showed no standard voltage toggle because **`SB140` is closed (ON)**. This routes `PB3` as `SWO_MCU` directly to the onboard ST-LINK for SWO trace debugging via USB, isolating it from standard pin output.
-* **`PB6`:** **WORKING**, subject to specific board power and line state conditions (look at the image below at PB6 and PB7).
+* **`PB6`:** **WORKING**, subject to specific board power and line state conditions.
 * **`PB7`:** Unresponsive because of alternating functions (line held flat LOW).
 
-
-![SWV internal output](assets/PB7_mutliplexity.png)
+<p align="center">
+  <img src="assets/PB7_mutliplexity.png" alt="CubeProgrammer TZONE Check" width="700"/>
+  <br>
+  <em>Figure 1: Nucleo datasheet of alternate functions, PB7 has a multiplexity that blocks pin external output. but PB6 hasn't</em>
+</p>
 
 ---
 
@@ -65,8 +68,15 @@ To eliminate software environment ambiguity, I connected the board to **STM32Cub
 
 > **Key Takeaway:** The dual Secure/Non-Secure project structure was adding unnecessary abstraction layers for hardware testing because hardware TrustZone was disabled at the silicon level.
 
+<img src="assets/programmer_settings.png" alt="CubeProgrammer TZONE Check" align="right" width="400" style="margin-left: 15px;">
 
-![SWV internal output](assets/programmer_settings.png)
+To eliminate software environment ambiguity, I connected the board to **STM32CubeProgrammer** to inspect the target's Option Bytes:
+* **`TZEN` (TrustZone Enable):** `0` (TrustZone is **disabled** by default in hardware).
+* **`RDP` (Readout Protection):** `0xAA` (Level 0 - Flash fully open, no read protection).
+
+> **Key Takeaway:** The dual Secure/Non-Secure project structure was adding unnecessary abstraction layers for hardware testing because hardware TrustZone was disabled at the silicon level.
+
+<br clear="right"/>
 
 ---
 
@@ -78,7 +88,7 @@ Created a clean, single-application project in STM32CubeMX without TrustZone ena
 3. **Confirmed Active/Working Pins:** `PA2`, `PA3`, `PA7`, `PB3` (via SWO), `PB6`, 'PB7, `PC7`, `PC8`, `PE13`, `A0` (`PA3`), and some other.
 4. **`PC7` Behavior:** Provided clear voltage transitions. `PC7` defaults to driving the onboard LED path (`SB120` OFF, `SB118` ON default configuration). A 3.3V logic level averaged ~1.9V under rapid toggle on the meter.
 
-![SWV internal output](assets/PB6_PB7_MX_settingsGPIO.png)
+Figure 4: In STM32CubeIDE there is a possiblity in SFR view to check addresses and rights value(read/write) of a running code here is a check if the right of PC7 was changed from 0x3 to 0x1 that would make pin PC7 to output data(spoiler, it didn't because of multiplexity despite physical change of the state)
 
 ---
 
@@ -90,13 +100,32 @@ To bypass HAL abstraction and rule out permission blocks => use direct register 
 
 > **Conclusion:** For pins where `MODER` updated correctly to output mode (`0x1`) in memory but still failed to drive a physical signal at the header socket, the root cause was isolated to **open solder bridges (PCB airgaps)** or **hardwired peripheral multiplexing conflicts**.
 
+<table align="center">
+  <tr>
+    <td align="left">
+      <img src="assets/programmer_moder_pinPC7_address.png" alt="CubeProgrammer check of physical address of PC7 pin" width="550"/>
+      <br>
+      <em>Figure 3: CubeProgrammer check of physical address of PC7 pin.</em>
+    </td>
+    <td align="right">
+      <img src="assets/moder7_change_0x3_to_0x1.png" alt="In STM32CubeIDE there is a possiblity in SFR view to check addresses and rights value(read/write) of a running code, here is a check if the right of PC7 was changed from 0x3 to 0x1 that would make pin PC7 to output data(spoiler, it didn't because of multiplexity despite physical change of the state) " width="550"/>
+      <br>
+      <em>Figure 4: In STM32CubeIDE in SFR view - running code pin addresses and rights value(0x3, 0x1)</em>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## Internal Output Implementation
 SWV Trace - Tracing Pins Output Internally (in STM32CubeIDE)
 For example in this way can be tracef the outout of PA2 pin which is connected to the debugger.
 
-![SWV internal output](internal_output_pin/internal_output_pinPB3_SWV.png)
+<p align="center">
+  <img src="internal_output_pin/internal_output_pinPB3_SWV.png" alt="internal output of pin PB3 TZONE Check" width="800"/>
+  <br>
+  <em>Figure 5: internal output of pin PB3</em>
+</p>
 
 ---
 
