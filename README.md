@@ -73,8 +73,10 @@ To eliminate software environment ambiguity, I connected the board to **STM32Cub
 Created a clean, single-application project in STM32CubeMX without TrustZone enabled:
 1. Configured candidate pins explicitly as `GPIO_Output` / `USART`.
 2. Measured physical voltage transitions using a digital multimeter as a secondary check.
-3. **Confirmed Active/Working Pins:** `PA7`, `PB6`, `PB3` (via SWO), `PC7`, and `A0` (`PA3`).
+3. **Confirmed Active/Working Pins:** `PA2`, `PA3`, `PA7`, `PB3` (via SWO), `PB6`, 'PB7, `PC7`, `PC8`, `PE13`, `A0` (`PA3`), and some other.
 4. **`PC7` Behavior:** Provided clear voltage transitions. `PC7` defaults to driving the onboard LED path (`SB120` OFF, `SB118` ON default configuration). A 3.3V logic level averaged ~1.9V under rapid toggle on the meter.
+
+![SWV internal output](assets/PB6_PB7_MX_settingsGPIO.png)
 
 ---
 
