@@ -1,7 +1,14 @@
 # Lab Notes: Configuring Signal Outputs and Header Intricacies on Nucleo-L552ZE-Q
 
 ## Objective
-To interpret raw digital signals into a human-readable format, I set out to identify pins on the NUCLEO-L552ZE-Q capable of transmitting data (`GPIO_Output` / `USART_TX`) and verify them using a logic analyzer and PulseView.
+To interpret raw digital signals into a human-readable format, I set out to identify pins on the NUCLEO-L552ZE-Q capable of transmitting data (`GPIO_Output` / `USART_TX`) and verify them using a logic analyser and PulseView.
+
+---
+
+## Note on code files:
+The main code is in C programming language files in a standard function called "main".
+Each file is independent of other C files.
+The projects were created in STM32CubeMX as projects without TrustZone(to configure the pins), then opened in STM32CubeIDE(to transmit data or toggle the pins).
 
 ---
 
