@@ -49,9 +49,11 @@ Detailed investigation of specific pins revealed several physical PCB and multip
 * **`A0` (Female Header):** Verified **WORKING** with common ground.
 * **`PB0` (Failure):** Solder bridge **`SB162` is OPEN (OFF) by default**. When `SB162` is open, the physical metal trace between the STM32 silicon pad and header sockets (`CN11` / `CN9`) is physically severed on the PCB. The MCU toggles the internal pad, but the signal cannot reach the analyzer probe. Additionally, `PB0` defaults to `OCTOSPI_IO1` peripheral mode.
 * **`PB3` (SWO Trace):** Showed no standard voltage toggle because **`SB140` is closed (ON)**. This routes `PB3` as `SWO_MCU` directly to the onboard ST-LINK for SWO trace debugging via USB, isolating it from standard pin output.
-* **`PB6`:** **WORKING**, subject to specific board power and line state conditions.
-* **`PB7`:** Unresponsive (line held flat LOW).
+* **`PB6`:** **WORKING**, subject to specific board power and line state conditions (look at the image below at PB6 and PB7).
+* **`PB7`:** Unresponsive because of alternating functions (line held flat LOW).
 
+
+![SWV internal output](assets/PB7_multiplexity.png)
 
 ---
 
